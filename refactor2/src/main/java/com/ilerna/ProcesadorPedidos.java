@@ -1,15 +1,17 @@
 package com.ilerna;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * Código inicial corregido (sin caracteres invisibles).
  */
 public class ProcesadorPedidos {
+    private static final Logger logger = Logger.getLogger(ProcesadorPedidos.class.getName());
 
     public static void main(String[] args) {
-        ArrayList<String> nombresproductos = new ArrayList<String>();
-        ArrayList<Double> precios = new ArrayList<Double>();
+        ArrayList<String> nombresproductos = new ArrayList<>();
+        ArrayList<Double> precios = new ArrayList<>();
 
         nombresproductos.add("Camiseta");
         precios.add(20.0);
@@ -22,7 +24,7 @@ public class ProcesadorPedidos {
 
         ProcesadorPedidos procesador = new ProcesadorPedidos();
         double total = procesador.procesar(nombresproductos, precios);
-        System.out.println("Total a pagar: " + total);
+        logger.info("Total a pagar: " + total);
     }
 
     public double procesar(ArrayList<String> nombresproductos, ArrayList<Double> precios) {
@@ -30,13 +32,13 @@ public class ProcesadorPedidos {
 
         // Sumar precios de la lista
         for (int i = 0; i < precios.size(); i++) {
-            System.out.println("Añadiendo producto: " + nombresproductos.get(i));
+            logger.info("Añadiendo producto: " + nombresproductos.get(i));
             subtotal = subtotal + precios.get(i);
         }
 
         // Lógica de descuento
         if (subtotal > 100) {
-            System.out.println("Descuento aplicado.");
+            logger.info("Descuento aplicado.");
             subtotal = subtotal - (subtotal * 0.10);
         }
 
