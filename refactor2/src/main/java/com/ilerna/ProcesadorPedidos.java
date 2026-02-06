@@ -7,6 +7,24 @@ import java.util.ArrayList;
  */
 public class ProcesadorPedidos {
 
+    public static void main(String[] args) {
+        ArrayList<String> nombresproductos = new ArrayList<String>();
+        ArrayList<Double> precios = new ArrayList<Double>();
+
+        nombresproductos.add("Camiseta");
+        precios.add(20.0);
+
+        nombresproductos.add("Pantalón");
+        precios.add(40.0);
+
+        nombresproductos.add("Zapatos");
+        precios.add(60.0);
+
+        ProcesadorPedidos procesador = new ProcesadorPedidos();
+        double total = procesador.procesar(nombresproductos, precios);
+        System.out.println("Total a pagar: " + total);
+    }
+
     public double procesar(ArrayList<String> nombresproductos, ArrayList<Double> precios) {
         double subtotal = 0;
 
