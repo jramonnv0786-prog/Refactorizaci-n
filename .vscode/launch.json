@@ -15,7 +15,16 @@
             "type": "java",
             "name": "Java archivo actual",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "projectName": "refactor2"
+        },
+        {
+            "type": "java",
+            "name": "Test: ProcesadorPedidosTest",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": "com.ilerna.ProcesadorPedidosTest",
+            "projectName": "refactor2"
         }
     ]
 }

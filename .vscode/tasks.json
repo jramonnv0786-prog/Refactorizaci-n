@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Maven: test",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["test"],
+            "cwd": "${workspaceFolder}/refactor2",
+            "problemMatcher": ["$java"],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Maven: clean test",
+            "type": "shell",
+            "command": "mvn",
+            "args": ["clean", "test"],
+            "cwd": "${workspaceFolder}/refactor2",
+            "problemMatcher": ["$java"]
+        }
+    ]
+}
