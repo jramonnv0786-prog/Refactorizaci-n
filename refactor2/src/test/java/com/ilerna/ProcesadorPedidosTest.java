@@ -23,6 +23,7 @@ public class ProcesadorPedidosTest {
         logMessages = new StringBuilder();
         
         // Crear un handler personalizado para capturar los logs
+
         testHandler = new Handler() {
             @Override
             public void publish(LogRecord record) {
@@ -54,6 +55,54 @@ public class ProcesadorPedidosTest {
         // 200 total -> -10% desc = 180 -> +21% IVA = 217.8 -> +15.95 envío = 233.75
         double resultado = proc.procesar(nombres, precios);
         assertEquals(233.75, resultado, 0.01);
+    }
+
+    @Test
+    public void testProcesarSinDescuento() {
+        ProcesadorPedidos proc = new ProcesadorPedidos();
+        ArrayList<String> nombres = new ArrayList<>(Arrays.asList("Producto1", "Producto2"));
+        ArrayList<Double> precios = new ArrayList<>(Arrays.asList(30.0, 40.0));
+
+        // Cálculos esperados:
+        // 70 total (sin descuento) -> +21% IVA = 84.7 -> +15.95 envío = 100.65
+        double resultado = proc.procesar(nombres, precios);
+        assertEquals(100.65, resultado, 0.01);
+    }
+
+    @Test
+    public void testProcesarUnProducto() {
+        ProcesadorPedidos proc = new ProcesadorPedidos();
+        ArrayList<String> nombres = new ArrayList<>(Arrays.asList("ArticuloUnico"));
+        ArrayList<Double> precios = new ArrayList<>(Arrays.asList(50.0));
+
+        // Cálculos esperados:
+        // 50 total (sin descuento) -> +21% IVA = 60.5 -> +15.95 envío = 76.45
+        double resultado = proc.procesar(nombres, precios);
+        assertEquals(76.45, resultado, 0.01);
+    }
+
+    @Test
+    public void testProcesarListaVacia() {
+        ProcesadorPedidos proc = new ProcesadorPedidos();
+        ArrayList<String> nombres = new ArrayList<>();
+        ArrayList<Double> precios = new ArrayList<>();
+
+        // Cálculos esperados:
+        // 0 total -> +0% IVA = 0 -> +15.95 envío = 15.95
+        double resultado = proc.procesar(nombres, precios);
+        assertEquals(15.95, resultado, 0.01);
+    }
+
+    @Test
+    public void testProcesarSinGastosEnvio() {
+        ProcesadorPedidos proc = new ProcesadorPedidos();
+        ArrayList<String> nombres = new ArrayList<>(Arrays.asList("Prod1", "Prod2", "Prod3"));
+        ArrayList<Double> precios = new ArrayList<>(Arrays.asList(400.0, 300.0, 150.0));
+
+        // Cálculos esperados:
+        // 850 total -> -10% desc = 765 -> +21% IVA = 925.65 (sin gastos de envío)
+        double resultado = proc.procesar(nombres, precios);
+        assertEquals(925.65, resultado, 0.01);
     }
 
     @Test
