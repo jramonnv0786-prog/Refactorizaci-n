@@ -32,16 +32,16 @@ jobs:
         cache: maven
         
     - name: Compilar con Maven
-      run: mvn -B clean compile --file practica-refactorizacion/pom.xml
+      run: mvn -B clean compile --file refactor2/pom.xml
       
     - name: Ejecutar tests
-      run: mvn -B test --file practica-refactorizacion/pom.xml
+      run: mvn -B test --file refactor2/pom.xml
       
     - name: Generar reporte de tests
       if: always()
       uses: dorny/test-reporter@v1
       with:
         name: Resultados de Tests Maven
-        path: practica-refactorizacion/target/surefire-reports/*.xml
+        path: refactor2/target/surefire-reports/*.xml
         reporter: java-junit
         fail-on-error: true
