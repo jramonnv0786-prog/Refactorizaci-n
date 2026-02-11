@@ -1,0 +1,47 @@
+name: Maven CI
+ 
+ 
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Permite ejecut  ar el workflow manualmente
+ 
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar JDK 11
+      uses: actions/setup-java@v4
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Compilar con Maven
+      run: mvn -B clean compile --file practica-refactorizacion/pom.xml
+      
+    - name: Ejecutar tests
+      run: mvn -B test --file practica-refactorizacion/pom.xml
+      
+    - name: Generar reporte de tests
+      if: always()
+      uses: dorny/test-reporter@v1
+      with:
+        name: Resultados de Tests Maven
+        path: practica-refactorizacion/target/surefire-reports/*.xml
+        reporter: java-junit
+        fail-on-error: true
